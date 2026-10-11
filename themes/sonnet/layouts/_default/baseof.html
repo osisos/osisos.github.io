@@ -28,6 +28,7 @@
   <a class="brand" href="{{ site.Home.RelPermalink }}">{{ site.Title }}<span class="brand-dot" aria-hidden="true">.</span></a>
   <nav aria-label="主导航">
     <a class="nav-item{{ if .IsHome }} active{{ end }}" href="{{ site.Home.RelPermalink }}"{{ if .IsHome }} aria-current="page"{{ end }}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>文章</a>
+    <a class="nav-item{{ if eq .Section "tools" }} active{{ end }}" href="{{ "tools/" | relURL }}"{{ if eq .Section "tools" }} aria-current="page"{{ end }}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M4 10h16M4 15h16M10 4v16M15 4v16"/></svg>工具</a>
     <a class="nav-item" href="https://github.com/osisos" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8h10v10M18 8 6 20M14 4H4v10"/></svg>GitHub</a>
   </nav>
   {{ if and .IsPage (gt (len .Fragments.Headings) 0) }}

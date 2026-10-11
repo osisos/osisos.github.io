@@ -1,0 +1,33 @@
+{{ define "main" }}
+{{ $css := resources.Get "css/grid.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
+<div class="grid-tool" id="grid-tool">
+  <header class="grid-heading"><p class="eyebrow"><a href="{{ "tools/" | relURL }}">工具</a> / 算子学习</p><h1>格点画布<span>把范围画出来。</span></h1><p>无限延伸的格点，给你的思考留出空间。</p></header>
+  <noscript>请启用 JavaScript 以使用格点画布。</noscript>
+  <div class="grid-toolbar" role="group" aria-label="画布工具">
+    <button type="button" data-mode="inspect" aria-pressed="false">查看</button>
+    <button type="button" data-mode="paint" aria-pressed="false">画笔</button>
+    <button type="button" data-mode="rectangle" aria-pressed="true">矩形填色</button>
+    <button type="button" data-mode="erase" aria-pressed="false">擦除</button>
+    <button type="button" data-mode="pan" aria-pressed="false">移动</button>
+    <span class="toolbar-spacer"></span><button type="button" id="grid-undo" disabled>撤销</button>
+  </div>
+  <div class="grid-workspace">
+    <section class="grid-paper" aria-label="格点画布">
+      <div class="grid-paper-heading"><span>无限格点 · x → &nbsp; y ↓</span><div class="grid-view-controls"><button type="button" id="grid-zoom-out" aria-label="缩小">−</button><output id="grid-zoom">100%</output><button type="button" id="grid-zoom-in" aria-label="放大">＋</button><button type="button" id="grid-home">回到原点</button></div></div>
+      <div id="grid-board" tabindex="0" role="group" aria-label="无限格点画布" aria-describedby="grid-help"><div id="grid-cells"></div><div id="grid-axes" aria-hidden="true"></div></div>
+      <p class="grid-help" id="grid-help">拖动框选一个矩形，松开后填入当前区域。</p>
+    </section>
+    <aside class="grid-panel">
+      <section><h2>当前格点</h2><output id="grid-coordinate" aria-live="polite">—</output><p id="grid-detail">点击格点查看坐标与区域。</p></section>
+      <section><div class="grid-section-title"><h2>区域</h2><button type="button" id="grid-add">＋ 新建</button></div>
+        <div id="grid-regions" role="group" aria-label="选择填色区域"></div>
+        <form id="grid-region-form"><label for="grid-name">区域名称</label><input id="grid-name" maxlength="24" required autocomplete="off" value="Q"><label for="grid-color">填充颜色</label><input id="grid-color" type="color" value="#d97757"><button type="submit" class="grid-save">保存名称与颜色</button></form>
+      </section>
+    </aside>
+  </div>
+  <footer class="grid-footer"><p id="grid-status" role="status">自动保存在此浏览器 · 支持正负坐标</p><button type="button" id="grid-clear">清空填色</button></footer>
+</div>
+{{ $js := resources.Get "js/grid.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" defer></script>
+{{ end }}
