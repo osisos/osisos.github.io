@@ -1,5 +1,5 @@
 baseURL: "https://osisos.github.io/"
-title: "github.io"
+title: "osisos"
 theme: "LoveClaude"
 defaultContentLanguage: "zh"
 languageCode: "zh-CN"
@@ -11,7 +11,7 @@ params:
   author: "osisos"
   description: ""
   heroLabel: "BLOG"
-  heroTitle: "github.io"
+  heroTitle: "osisos"
   heroSubtitle: ""
   defaultTheme: "light"
 outputs:

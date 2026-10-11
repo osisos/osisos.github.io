@@ -1,4 +1,4 @@
-# github.io
+# osisos
 
 Personal Hugo blog at https://osisos.github.io/.
 
