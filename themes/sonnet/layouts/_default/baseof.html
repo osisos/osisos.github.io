@@ -10,6 +10,17 @@
 {{ $css := resources.Get "css/sonnet.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 <meta name="theme-color" content="#faf9f5">
+<script>
+(function(){
+  var theme;
+  try { theme=localStorage.getItem('sonnet-theme'); } catch(e) {}
+  if(theme!=='light' && theme!=='dark') theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+  document.documentElement.dataset.theme=theme;
+  document.querySelector('meta[name="theme-color"]').content=theme==='dark'?'#262624':'#faf9f5';
+})();
+</script>
+{{ $js := resources.Get "js/theme.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">跳到正文</a>
@@ -25,7 +36,7 @@
   <p class="sidebar-bottom">© {{ now.Year }} {{ site.Title }}</p>
 </aside>
 <div class="workspace">
-  <div class="topline"><a href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a><span>/</span><span>{{ if .IsHome }}文章{{ else }}{{ .Title }}{{ end }}</span></div>
+  <div class="topline"><a href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a><span>/</span><span>{{ if .IsHome }}文章{{ else }}{{ .Title }}{{ end }}</span><button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换深色模式" title="切换深色模式" hidden><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13A8.8 8.8 0 0 1 11 3.2 8.8 8.8 0 1 0 20.8 13Z"/></svg><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/></svg></button></div>
   <main id="main" class="document">{{ block "main" . }}{{ end }}</main>
 </div>
 </body>

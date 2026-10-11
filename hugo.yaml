@@ -14,7 +14,7 @@ outputs:
 markup:
   highlight:
     style: friendly
-    noClasses: true
+    noClasses: false
   goldmark:
     extensions:
       passthrough:
