@@ -1,0 +1,105 @@
+{{ define "main" }}
+{{- partial "hero.html" . -}}
+
+{{/* ── Life tree: all posts, newest at top (crown), oldest at bottom (roots) ── */}}
+{{ $catClr  := dict "技术" "#7c3aed" "ai" "#3b82f6" "AI" "#3b82f6" "读书" "#10b981" "随笔" "#f59e0b" "设计" "#ec4899" "工具" "#f97316" }}
+{{ $posts   := (where site.RegularPages "Type" "posts").ByDate.Reverse }}
+{{ $total   := len $posts }}
+
+{{ if $total }}
+<section class="ltree-section" id="posts-tree">
+
+  {{/* Ambient glow — wrapped so they clip without affecting sibling layout */}}
+  <div class="ltree-orb-wrap" aria-hidden="true">
+    <div class="ltree-orb ltree-orb-1"></div>
+    <div class="ltree-orb ltree-orb-2"></div>
+    <div class="ltree-orb ltree-orb-3"></div>
+  </div>
+
+  <div class="container">
+
+    <div class="ltree-hd">
+      <span class="ltree-eyebrow">成长轨迹</span>
+      <h2 class="ltree-title">文字，是一棵树</h2>
+      <p class="ltree-subtitle">从最初的一行字，到如今枝繁叶茂</p>
+    </div>
+
+    <div class="ltree" id="ltree">
+
+      {{/* Central trunk */}}
+      <div class="ltree-trunk-wrap" aria-hidden="true">
+        <div class="ltree-trunk"></div>
+      </div>
+
+      {{/* Crown marker — top of tree (newest) */}}
+      <div class="ltree-crown" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 22V12M12 12C12 12 7 8 7 4.5a5 5 0 0 1 10 0C17 8 12 12 12 12z"/>
+        </svg>
+        <span>最新</span>
+      </div>
+
+      {{/* Articles: newest → oldest, top → bottom */}}
+      {{ range $i, $p := $posts }}
+      {{ $cat   := index $p.Params.categories 0 | default "" }}
+      {{ $clr   := index $catClr $cat | default "#7c3aed" }}
+      {{ $side  := cond (eq (mod $i 2) 0) "ltree-item--left" "ltree-item--right" }}
+      {{/* Bottom items (oldest) get shortest delay — roots grow first */}}
+      <div class="ltree-item {{ $side }}" style="--clr:{{ $clr }}">
+        <div class="ltree-dot" aria-hidden="true"></div>
+        <div class="ltree-branch-line" aria-hidden="true"></div>
+        <article class="ltree-card">
+          <div class="ltree-card-meta">
+            <time class="ltree-card-date" datetime="{{ $p.Date.Format `2006-01-02` }}">
+              {{- $p.Date.Format "2006 · 01" -}}
+            </time>
+            {{ with $cat }}
+            <span class="ltree-card-tag">{{ . | upper }}</span>
+            {{ end }}
+          </div>
+          <h3 class="ltree-card-title">
+            <a href="{{ $p.RelPermalink }}"{{ if $p.Params.protected }} data-protected="true"{{ end }}>{{ $p.Title }}{{ if $p.Params.protected }}&thinsp;<svg style="display:inline-block;vertical-align:middle;opacity:0.55" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>{{ end }}</a>
+          </h3>
+          {{ if $p.Params.protected -}}
+          <p class="ltree-card-desc ltree-card-desc--protected">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            受保护内容
+          </p>
+          {{- else -}}
+          {{ with $p.Description }}
+          <p class="ltree-card-desc">{{ . }}</p>
+          {{ end }}
+          {{- end }}
+        </article>
+      </div>
+
+      {{ end }}
+
+      {{/* Root marker — bottom of tree (oldest / 起点) */}}
+      <div class="ltree-root-mark" id="tree-root" aria-label="起点">
+        <div class="ltree-root-dot" aria-hidden="true"></div>
+        <span class="ltree-root-label">起点</span>
+      </div>
+
+    </div>{{/* end .ltree */}}
+
+    <div class="ltree-cta">
+      <p class="ltree-cta-hint" aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        向上滑动，探索文章
+      </p>
+      <a href="{{ "/posts/" | relLangURL }}" class="btn btn-outline">
+        查看更多文章
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+{{ else }}
+<section class="ltree-section" id="posts-tree">
+  <div class="container ltree-hd"><p class="ltree-subtitle">暂无文章</p></div>
+</section>
+{{ end }}
+
+{{ end }}
