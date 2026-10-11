@@ -1,0 +1,12 @@
+{{ define "main" }}
+<header class="page-heading"><p class="eyebrow">个人博客</p><h1>{{ site.Title }}</h1></header>
+{{ $posts := where site.RegularPages "Section" "posts" }}
+<div class="section-heading"><h2>文章</h2><span>{{ len $posts }} 篇</span></div>
+{{ if $posts }}
+{{ $pager := .Paginate $posts.ByDate.Reverse }}
+<div class="post-list">{{ range $pager.Pages }}
+<article class="post-row"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time><div><h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>{{ with .Description }}<p>{{ . }}</p>{{ end }}</div></article>
+{{ end }}</div>
+{{ if gt $pager.TotalPages 1 }}<nav class="pagination" aria-label="分页">{{ if $pager.HasPrev }}<a href="{{ $pager.Prev.URL }}">上一页</a>{{ end }}<span>{{ $pager.PageNumber }} / {{ $pager.TotalPages }}</span>{{ if $pager.HasNext }}<a href="{{ $pager.Next.URL }}">下一页</a>{{ end }}</nav>{{ end }}
+{{ else }}<div class="empty-state"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 6h11l5 5v15H8zM19 6v6h5M12 17h8M12 21h5"/></svg><p>暂无文章</p></div>{{ end }}
+{{ end }}

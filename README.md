@@ -1,18 +1,18 @@
 # osisos
 
-Personal Hugo blog at https://osisos.github.io/.
+Personal Hugo blog: https://osisos.github.io/.
 
-Uses the MIT-licensed [LoveClaude](https://github.com/wangsirco/loveclaude) theme,
-pinned as a Git submodule. Hugo extended 0.146.0 is used for local builds and deployment.
+The local `themes/sonnet` theme is implemented for this blog using the palette,
+typography and document proportions of the owner's Typora `sonnet.css`.
+It uses paper white (#faf9f5), charcoal (#141413), clay (#D97757),
+Georgia / Noto Serif SC, a 752px reading column, and restrained Markdown styles.
+There are no external scripts, translations, animations, or remote font requests.
+
+Hugo extended 0.146.0:
 
 ```sh
-git submodule update --init --recursive
 hugo server
 ```
 
-Add posts under `content/posts/`. Push to `main` to deploy via GitHub Pages.
-
-Site overrides preserve the upstream design while supplying system serif font
-fallbacks (the theme omits its referenced font files), honoring the configured
-light default, and removing author-specific demo text and unavailable page links.
-Old posts and generated pages were removed; generated output is no longer tracked.
+Add Markdown posts to `content/posts/`. Push to `main` to deploy via GitHub Pages.
+Generated output is ignored. Noto Serif SC is self-hosted under its SIL OFL license.

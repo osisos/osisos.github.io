@@ -1,23 +1,21 @@
 baseURL: "https://osisos.github.io/"
 title: "osisos"
-theme: "LoveClaude"
+theme: "sonnet"
 defaultContentLanguage: "zh"
 languageCode: "zh-CN"
 enableRobotsTXT: true
 cleanDestinationDir: true
 pagination:
-  pagerSize: 6
+  pagerSize: 12
 params:
   author: "osisos"
-  description: ""
-  heroLabel: "BLOG"
-  heroTitle: "osisos"
-  heroSubtitle: ""
-  defaultTheme: "light"
 outputs:
   home: [HTML, RSS]
-  section: [HTML, RSS]
 markup:
   highlight:
     style: friendly
     noClasses: true
+  goldmark:
+    extensions:
+      passthrough:
+        enable: false

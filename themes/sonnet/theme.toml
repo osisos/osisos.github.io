@@ -1,0 +1,3 @@
+name = "Sonnet"
+description = "A reading-first Hugo theme adapted from the local Typora Sonnet theme."
+min_version = "0.146.0"
