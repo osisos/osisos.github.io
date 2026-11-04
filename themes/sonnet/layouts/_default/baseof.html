@@ -9,6 +9,12 @@
 {{ range .AlternativeOutputFormats }}<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}">{{ end }}
 {{ $css := resources.Get "css/sonnet.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+{{ if .Params.math }}
+<link rel="stylesheet" href="{{ "katex/katex.min.css" | relURL }}">
+<script defer src="{{ "katex/katex.min.js" | relURL }}"></script>
+<script defer src="{{ "katex/auto-render.min.js" | relURL }}"></script>
+<script defer src="{{ "js/render-math.js" | relURL }}"></script>
+{{ end }}
 <meta name="theme-color" content="#faf9f5">
 <script>
 (function(){

@@ -18,4 +18,9 @@ markup:
   goldmark:
     extensions:
       passthrough:
-        enable: false
+        enable: true
+        delimiters:
+          block:
+            - ["$$", "$$"]
+          inline:
+            - ["$", "$"]

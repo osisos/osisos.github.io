@@ -10,6 +10,7 @@
 :root{color-scheme:light}
 :root[data-theme="dark"]{color-scheme:dark;--bg:#262624;--hover:#141413;--ink:#faf9f5;--secondary:#c2c0b6;--muted:#9a9c92;--line:#dedcd126;--code-bg:#30302e80;--code-ink:#f4a9a9;--soft-line:#dedcd10d;--sidebar-surface:linear-gradient(150deg,#30302e99,#30302e4d);--active:#30302e;--code-inline:#c2c0b60d;--quote-line:#dedcd126;--strong-line:#dedcd199;--rule:#dedcd14d;--icon:#9a9c92;--body-weight:400;--strong-weight:600}
 .prose{font-weight:var(--body-weight)}
+.prose .katex-display{max-width:100%;overflow-x:auto;overflow-y:hidden}
 .theme-toggle{margin-left:auto;flex-shrink:0;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:7px;background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--secondary);cursor:pointer}
 .theme-toggle[hidden]{display:none}.theme-toggle:hover{background:var(--hover);color:var(--clay)}.theme-toggle svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.theme-toggle .sun{display:none}[data-theme="dark"] .theme-toggle .moon{display:none}[data-theme="dark"] .theme-toggle .sun{display:block}
 @media print{:root[data-theme="dark"]{--bg:#fff;--ink:#141413;--secondary:#3d3d3a;--muted:#73726c;--line:#1f1e1d26;--code-bg:#fff;--code-ink:#8a2424;--code-inline:#3d3d3a0d;--quote-line:#1f1e1d1a;--strong-line:#1f1e1d99;--rule:#1f1e1d4d;--body-weight:400;--strong-weight:700;color-scheme:light}}
